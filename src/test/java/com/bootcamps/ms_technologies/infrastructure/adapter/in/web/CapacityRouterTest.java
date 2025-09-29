@@ -1,8 +1,6 @@
 package com.bootcamps.ms_technologies.infrastructure.adapter.in.web;
 
 import com.bootcamps.ms_technologies.domain.model.Capacity;
-import com.bootcamps.ms_technologies.infrastructure.adapter.in.web.CapacityHandler;
-import com.bootcamps.ms_technologies.infrastructure.adapter.in.web.CapacityRouter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
