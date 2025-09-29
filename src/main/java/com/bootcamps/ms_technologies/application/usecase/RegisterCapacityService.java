@@ -1,4 +1,4 @@
 package com.bootcamps.ms_technologies.application.usecase;
 
-public class RegisterTechnologyService {
+public class RegisterCapacityService {
 }

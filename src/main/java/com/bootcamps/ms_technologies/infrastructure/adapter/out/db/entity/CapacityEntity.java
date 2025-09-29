@@ -1,4 +1,4 @@
-package com.bootcamps.ms_technologies.infrastructure.adapter.out.db;
+package com.bootcamps.ms_technologies.infrastructure.adapter.out.db.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,15 +8,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-
 @Table(name = "capacity")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TechnologyEntity {
+public class CapacityEntity {
     @Id
     private Long id;
+
     @Column("nombre")
     private String name;
 

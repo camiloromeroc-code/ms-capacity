@@ -12,8 +12,8 @@ public class SwaggerConfig {
     public OpenAPI msTechnologiesOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("MS Technologies API")
-                        .description("API para gestionar tecnologías")
+                        .title("MS Capacities API")
+                        .description("API para gestionar las capacidades")
                         .version("1.0.0"));
     }
 }

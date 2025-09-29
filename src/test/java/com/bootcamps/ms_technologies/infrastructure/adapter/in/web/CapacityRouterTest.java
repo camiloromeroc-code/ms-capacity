@@ -1,6 +1,6 @@
 package com.bootcamps.ms_technologies.infrastructure.adapter.in.web;
 
-import com.bootcamps.ms_technologies.domain.model.Technology;
+import com.bootcamps.ms_technologies.domain.model.Capacity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -12,19 +12,18 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.web.reactive.function.server.RouterFunctions.toWebHandler;
 
-class TechnologyRouterTest {
+class CapacityRouterTest {
 
     private WebTestClient webTestClient;
-    private TechnologyHandler handler;
+    private CapacityHandler handler;
 
     @BeforeEach
     void setUp() {
-        handler = Mockito.mock(TechnologyHandler.class);
-        RouterFunction<ServerResponse> routerFunction = new TechnologyRouter().technologyRoutes(handler);
+        handler = Mockito.mock(CapacityHandler.class);
+        RouterFunction<ServerResponse> routerFunction = new com.bootcamps.ms_capacities.infrastructure.adapter.in.web.CapacityRouter().technologyRoutes(handler);
         webTestClient = WebTestClient.bindToWebHandler(toWebHandler(routerFunction)).build();
     }
 
@@ -47,7 +46,7 @@ class TechnologyRouterTest {
 
     @Nested
     @DisplayName("GET /api/v1/technologies/{id}")
-    class GetTechnologyById {
+    class GetCapacityById {
 
         @Test
         @DisplayName("should return 200 and technology when ID exists")
@@ -75,7 +74,7 @@ class TechnologyRouterTest {
 
     @Nested
     @DisplayName("POST /api/v1/technologies")
-    class CreateTechnology {
+    class CreateCapacity {
 
         @Test
         @DisplayName("should return 200 and created technology when input is valid")
@@ -85,7 +84,7 @@ class TechnologyRouterTest {
             webTestClient.post()
                     .uri("/api/v1/technologies")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Technology(1L,"",""))
+                    .bodyValue(new Capacity(1L,"",""))
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON);
@@ -107,7 +106,7 @@ class TechnologyRouterTest {
 
     @Nested
     @DisplayName("PUT /api/v1/technologies/{id}")
-    class UpdateTechnology {
+    class UpdateCapacity {
 
         @Test
         @DisplayName("should return 200 and updated technology when input is valid")
@@ -117,7 +116,7 @@ class TechnologyRouterTest {
             webTestClient.put()
                     .uri("/api/v1/technologies/1")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Technology(1L,"",""))
+                    .bodyValue(new Capacity(1L,"",""))
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON);
@@ -131,7 +130,7 @@ class TechnologyRouterTest {
             webTestClient.put()
                     .uri("/api/v1/technologies/999")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Technology(1L,"",""))
+                    .bodyValue(new Capacity(1L,"",""))
                     .exchange()
                     .expectStatus().isNotFound();
         }
@@ -152,7 +151,7 @@ class TechnologyRouterTest {
 
     @Nested
     @DisplayName("DELETE /api/v1/technologies/{id}")
-    class DeleteTechnology {
+    class DeleteCapacity {
 
         @Test
         @DisplayName("should return 204 when technology is deleted successfully")

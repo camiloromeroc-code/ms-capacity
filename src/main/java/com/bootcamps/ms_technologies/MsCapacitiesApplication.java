@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsTechnologiesApplication {
+public class MsCapacitiesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsTechnologiesApplication.class, args);
+		SpringApplication.run(MsCapacitiesApplication.class, args);
 	}
 
 }

@@ -1,8 +1,8 @@
 package com.bootcamps.ms_technologies.infrastructure.adapter.in.web;
 
 
-import com.bootcamps.ms_technologies.domain.model.Technology;
-import com.bootcamps.ms_technologies.domain.service.TechnologyService;
+import com.bootcamps.ms_technologies.domain.model.Capacity;
+import com.bootcamps.ms_technologies.domain.service.CapacityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,19 +16,19 @@ import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class TechnologyHandler {
+public class CapacityHandler {
 
-    private final TechnologyService technologyService;
+    private final CapacityService capacityService;
 
     public Mono<ServerResponse> getAll(ServerRequest request) {
         return ServerResponse.ok()
                 .contentType(APPLICATION_JSON)
-                .body(technologyService.listTechnologies(), Technology.class);
+                .body(capacityService.listTechnologies(), Capacity.class);
     }
 
     public Mono<ServerResponse> create(ServerRequest request) {
-        return request.bodyToMono(Technology.class)
-                .flatMap(technologyService::createTechnology)
+        return request.bodyToMono(Capacity.class)
+                .flatMap(capacityService::createCapacity)
                 .flatMap(tech -> ServerResponse.ok()
                         .contentType(APPLICATION_JSON)
                         .body(fromValue(tech)));
@@ -36,7 +36,7 @@ public class TechnologyHandler {
 
     public Mono<ServerResponse> getById(ServerRequest request) {
         String id = request.pathVariable("id");
-        return technologyService.getTechnologyById(Long.valueOf(id))
+        return capacityService.getCapacityById(Long.valueOf(id))
                 .flatMap(tech -> ServerResponse.ok()
                         .contentType(APPLICATION_JSON)
                         .body(fromValue(tech)))
@@ -45,8 +45,8 @@ public class TechnologyHandler {
 
     public Mono<ServerResponse> update(ServerRequest request) {
         String id = request.pathVariable("id");
-        return request.bodyToMono(Technology.class)
-                .flatMap(tech -> technologyService.updateTechnology(Long.valueOf(id), tech))
+        return request.bodyToMono(Capacity.class)
+                .flatMap(tech -> capacityService.updateCapacity(Long.valueOf(id), tech))
                 .flatMap(updated -> ServerResponse.ok()
                         .contentType(APPLICATION_JSON)
                         .body(fromValue(updated)))
@@ -55,7 +55,7 @@ public class TechnologyHandler {
 
     public Mono<ServerResponse> delete(ServerRequest request) {
         String id = request.pathVariable("id");
-        return technologyService.deleteTechnology(Long.valueOf(id))
+        return capacityService.deleteCapacity(Long.valueOf(id))
                 .flatMap(deleted -> deleted
                         ? ServerResponse.noContent().build()
                         : ServerResponse.notFound().build());

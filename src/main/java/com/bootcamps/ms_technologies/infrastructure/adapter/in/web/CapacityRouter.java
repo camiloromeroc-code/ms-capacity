@@ -1,6 +1,6 @@
 package com.bootcamps.ms_technologies.infrastructure.adapter.in.web;
 
-import com.bootcamps.ms_technologies.domain.model.Technology;
+import com.bootcamps.ms_technologies.domain.model.Capacity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -21,42 +21,42 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class TechnologyRouter {
+public class CapacityRouter {
 
     @Bean
     @RouterOperations({
             @RouterOperation(
-                    path = "/api/v1/technologies",
+                    path = "/api/v1/capacity",
                     method = RequestMethod.GET,
-                    beanClass = TechnologyHandler.class,
+                    beanClass = CapacityHandler.class,
                     beanMethod = "getAll",
                     operation = @Operation(
                             operationId = "getAllTechnologies",
-                            summary = "Obtener todas las tecnologías",
-                            description = "Devuelve el listado completo de tecnologías registradas en el sistema",
-                            tags = {"Technologies"},
+                            summary = "Obtener todas las capacidades",
+                            description = "Devuelve el listado completo de capacidades registradas en el sistema",
+                            tags = {"Capacity"},
                             responses = {
                                     @ApiResponse(
                                             responseCode = "200",
-                                            description = "Lista de tecnologías obtenida exitosamente",
+                                            description = "Lista de capacidades obtenida exitosamente",
                                             content = @Content(
                                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                                    schema = @Schema(implementation = Technology.class)
+                                                    schema = @Schema(implementation = Capacity.class)
                                             )
                                     )
                             }
                     )
             ),
             @RouterOperation(
-                    path = "/api/v1/technologies/{id}",
+                    path = "/api/v1/capacities/{id}",
                     method = RequestMethod.GET,
-                    beanClass = TechnologyHandler.class,
+                    beanClass = CapacityHandler.class,
                     beanMethod = "getById",
                     operation = @Operation(
-                            operationId = "getTechnologyById",
+                            operationId = "getCapacityById",
                             summary = "Obtener tecnología por ID",
                             description = "Busca una tecnología específica por su identificador único",
-                            tags = {"Technologies"},
+                            tags = {"Capacity"},
                             parameters = {
                                     @Parameter(
                                             name = "id",
@@ -72,7 +72,7 @@ public class TechnologyRouter {
                                             description = "Tecnología encontrada",
                                             content = @Content(
                                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                                    schema = @Schema(implementation = Technology.class)
+                                                    schema = @Schema(implementation = Capacity.class)
                                             )
                                     ),
                                     @ApiResponse(
@@ -83,21 +83,21 @@ public class TechnologyRouter {
                     )
             ),
             @RouterOperation(
-                    path = "/api/v1/technologies",
+                    path = "/api/v1/capacities",
                     method = RequestMethod.POST,
-                    beanClass = TechnologyHandler.class,
+                    beanClass = CapacityHandler.class,
                     beanMethod = "create",
                     operation = @Operation(
-                            operationId = "createTechnology",
+                            operationId = "createCapacity",
                             summary = "Crear nueva tecnología",
                             description = "Crea una nueva tecnología en el sistema con los datos proporcionados",
-                            tags = {"Technologies"},
+                            tags = {"Capacity"},
                             requestBody = @RequestBody(
                                     description = "Datos de la tecnología a crear",
                                     required = true,
                                     content = @Content(
                                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                            schema = @Schema(implementation = Technology.class)
+                                            schema = @Schema(implementation = Capacity.class)
                                     )
                             ),
                             responses = {
@@ -106,7 +106,7 @@ public class TechnologyRouter {
                                             description = "Tecnología creada exitosamente",
                                             content = @Content(
                                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                                    schema = @Schema(implementation = Technology.class)
+                                                    schema = @Schema(implementation = Capacity.class)
                                             )
                                     ),
                                     @ApiResponse(
@@ -117,15 +117,15 @@ public class TechnologyRouter {
                     )
             ),
             @RouterOperation(
-                    path = "/api/v1/technologies/{id}",
+                    path = "/api/v1/capacities/{id}",
                     method = RequestMethod.PUT,
-                    beanClass = TechnologyHandler.class,
+                    beanClass = CapacityHandler.class,
                     beanMethod = "update",
                     operation = @Operation(
-                            operationId = "updateTechnology",
+                            operationId = "updateCapacity",
                             summary = "Actualizar tecnología existente",
                             description = "Actualiza completamente los datos de una tecnología existente",
-                            tags = {"Technologies"},
+                            tags = {"Capacity"},
                             parameters = {
                                     @Parameter(
                                             name = "id",
@@ -140,7 +140,7 @@ public class TechnologyRouter {
                                     required = true,
                                     content = @Content(
                                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                            schema = @Schema(implementation = Technology.class)
+                                            schema = @Schema(implementation = Capacity.class)
                                     )
                             ),
                             responses = {
@@ -149,7 +149,7 @@ public class TechnologyRouter {
                                             description = "Tecnología actualizada exitosamente",
                                             content = @Content(
                                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                                    schema = @Schema(implementation = Technology.class)
+                                                    schema = @Schema(implementation = Capacity.class)
                                             )
                                     ),
                                     @ApiResponse(
@@ -164,15 +164,15 @@ public class TechnologyRouter {
                     )
             ),
             @RouterOperation(
-                    path = "/api/v1/technologies/{id}",
+                    path = "/api/v1/capacities/{id}",
                     method = RequestMethod.DELETE,
-                    beanClass = TechnologyHandler.class,
+                    beanClass = CapacityHandler.class,
                     beanMethod = "delete",
                     operation = @Operation(
-                            operationId = "deleteTechnology",
+                            operationId = "deleteCapacity",
                             summary = "Eliminar tecnología",
                             description = "Elimina permanentemente una tecnología del sistema",
-                            tags = {"Technologies"},
+                            tags = {"Capacity"},
                             parameters = {
                                     @Parameter(
                                             name = "id",
@@ -195,11 +195,11 @@ public class TechnologyRouter {
                     )
             )
     })
-    public RouterFunction<ServerResponse> technologyRoutes(TechnologyHandler handler) {
-        return route(GET("/api/v1/technologies"), handler::getAll)
-                .andRoute(GET("/api/v1/technologies/{id}"), handler::getById)
-                .andRoute(POST("/api/v1/technologies"), handler::create)
-                .andRoute(PUT("/api/v1/technologies/{id}"), handler::update)
-                .andRoute(DELETE("/api/v1/technologies/{id}"), handler::delete);
+    public RouterFunction<ServerResponse> technologyRoutes(CapacityHandler handler) {
+        return route(GET("/api/v1/capacities"), handler::getAll)
+                .andRoute(GET("/api/v1/capacities/{id}"), handler::getById)
+                .andRoute(POST("/api/v1/capacities"), handler::create)
+                .andRoute(PUT("/api/v1/capacities/{id}"), handler::update)
+                .andRoute(DELETE("/api/v1/capacities/{id}"), handler::delete);
     }
 }
