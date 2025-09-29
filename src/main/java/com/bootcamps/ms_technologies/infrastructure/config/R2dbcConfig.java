@@ -22,7 +22,7 @@ public class R2dbcConfig extends AbstractR2dbcConfiguration {
                         .option(io.r2dbc.spi.ConnectionFactoryOptions.PORT, 3306)
                         .option(io.r2dbc.spi.ConnectionFactoryOptions.USER, "root")
                         .option(io.r2dbc.spi.ConnectionFactoryOptions.PASSWORD, "0000")
-                        .option(io.r2dbc.spi.ConnectionFactoryOptions.DATABASE, "ms_technologies")
+                        .option(io.r2dbc.spi.ConnectionFactoryOptions.DATABASE, "ms_capacities")
                         .build()
         );
     }

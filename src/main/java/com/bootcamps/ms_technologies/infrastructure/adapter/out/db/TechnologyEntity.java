@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 
-@Table(name = "technology")
+@Table(name = "capacity")
 @Getter
 @Setter
 @NoArgsConstructor
