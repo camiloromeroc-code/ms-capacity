@@ -1,6 +1,8 @@
 package com.bootcamps.ms_technologies.infrastructure.adapter.in.web;
 
 import com.bootcamps.ms_technologies.domain.model.Capacity;
+import com.bootcamps.ms_technologies.infrastructure.adapter.in.web.CapacityHandler;
+import com.bootcamps.ms_technologies.infrastructure.adapter.in.web.CapacityRouter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -23,21 +25,21 @@ class CapacityRouterTest {
     @BeforeEach
     void setUp() {
         handler = Mockito.mock(CapacityHandler.class);
-        RouterFunction<ServerResponse> routerFunction = new com.bootcamps.ms_capacities.infrastructure.adapter.in.web.CapacityRouter().technologyRoutes(handler);
+        RouterFunction<ServerResponse> routerFunction = new CapacityRouter().technologyRoutes(handler);
         webTestClient = WebTestClient.bindToWebHandler(toWebHandler(routerFunction)).build();
     }
 
     @Nested
-    @DisplayName("GET /api/v1/technologies")
+    @DisplayName("GET /api/v1/capacities")
     class GetAllTechnologies {
 
         @Test
-        @DisplayName("should return 200 and list of technologies when data exists")
+        @DisplayName("should return 200 and list of capacities when data exists")
         void shouldReturn200AndListOfTechnologies() {
             when(handler.getAll(any())).thenReturn(ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build());
 
             webTestClient.get()
-                    .uri("/api/v1/technologies")
+                    .uri("/api/v1/capacities")
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON);
@@ -45,7 +47,7 @@ class CapacityRouterTest {
     }
 
     @Nested
-    @DisplayName("GET /api/v1/technologies/{id}")
+    @DisplayName("GET /api/v1/capacities/{id}")
     class GetCapacityById {
 
         @Test
@@ -54,7 +56,7 @@ class CapacityRouterTest {
             when(handler.getById(any())).thenReturn(ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build());
 
             webTestClient.get()
-                    .uri("/api/v1/technologies/1")
+                    .uri("/api/v1/capacities/1")
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON);
@@ -66,14 +68,14 @@ class CapacityRouterTest {
             when(handler.getById(any())).thenReturn(ServerResponse.notFound().build());
 
             webTestClient.get()
-                    .uri("/api/v1/technologies/999")
+                    .uri("/api/v1/capacities/999")
                     .exchange()
                     .expectStatus().isNotFound();
         }
     }
 
     @Nested
-    @DisplayName("POST /api/v1/technologies")
+    @DisplayName("POST /api/v1/capacities")
     class CreateCapacity {
 
         @Test
@@ -82,9 +84,9 @@ class CapacityRouterTest {
             when(handler.create(any())).thenReturn(ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build());
 
             webTestClient.post()
-                    .uri("/api/v1/technologies")
+                    .uri("/api/v1/capacities")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Capacity(1L,"",""))
+                    .bodyValue(new Capacity(1L, "", ""))
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON);
@@ -96,7 +98,7 @@ class CapacityRouterTest {
             when(handler.create(any())).thenReturn(ServerResponse.badRequest().build());
 
             webTestClient.post()
-                    .uri("/api/v1/technologies")
+                    .uri("/api/v1/capacities")
                     .contentType(MediaType.APPLICATION_JSON)
                     .bodyValue("{}")
                     .exchange()
@@ -105,7 +107,7 @@ class CapacityRouterTest {
     }
 
     @Nested
-    @DisplayName("PUT /api/v1/technologies/{id}")
+    @DisplayName("PUT /api/v1/capacities/{id}")
     class UpdateCapacity {
 
         @Test
@@ -114,9 +116,9 @@ class CapacityRouterTest {
             when(handler.update(any())).thenReturn(ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).build());
 
             webTestClient.put()
-                    .uri("/api/v1/technologies/1")
+                    .uri("/api/v1/capacities/1")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Capacity(1L,"",""))
+                    .bodyValue(new Capacity(1L, "", ""))
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON);
@@ -128,9 +130,9 @@ class CapacityRouterTest {
             when(handler.update(any())).thenReturn(ServerResponse.notFound().build());
 
             webTestClient.put()
-                    .uri("/api/v1/technologies/999")
+                    .uri("/api/v1/capacities/999")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Capacity(1L,"",""))
+                    .bodyValue(new Capacity(1L, "", ""))
                     .exchange()
                     .expectStatus().isNotFound();
         }
@@ -141,7 +143,7 @@ class CapacityRouterTest {
             when(handler.update(any())).thenReturn(ServerResponse.badRequest().build());
 
             webTestClient.put()
-                    .uri("/api/v1/technologies/1")
+                    .uri("/api/v1/capacities/1")
                     .contentType(MediaType.APPLICATION_JSON)
                     .bodyValue("{}")
                     .exchange()
@@ -150,7 +152,7 @@ class CapacityRouterTest {
     }
 
     @Nested
-    @DisplayName("DELETE /api/v1/technologies/{id}")
+    @DisplayName("DELETE /api/v1/capacities/{id}")
     class DeleteCapacity {
 
         @Test
@@ -159,7 +161,7 @@ class CapacityRouterTest {
             when(handler.delete(any())).thenReturn(ServerResponse.noContent().build());
 
             webTestClient.delete()
-                    .uri("/api/v1/technologies/1")
+                    .uri("/api/v1/capacities/1")
                     .exchange()
                     .expectStatus().isNoContent();
         }
@@ -170,7 +172,7 @@ class CapacityRouterTest {
             when(handler.delete(any())).thenReturn(ServerResponse.notFound().build());
 
             webTestClient.delete()
-                    .uri("/api/v1/technologies/999")
+                    .uri("/api/v1/capacities/999")
                     .exchange()
                     .expectStatus().isNotFound();
         }
