@@ -11,6 +11,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import java.util.ArrayList;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.web.reactive.function.server.RouterFunctions.toWebHandler;
@@ -23,7 +25,7 @@ class CapacityRouterTest {
     @BeforeEach
     void setUp() {
         handler = Mockito.mock(CapacityHandler.class);
-        RouterFunction<ServerResponse> routerFunction = new CapacityRouter().technologyRoutes(handler);
+        RouterFunction<ServerResponse> routerFunction = new CapacityRouter().capacityRoutes(handler);
         webTestClient = WebTestClient.bindToWebHandler(toWebHandler(routerFunction)).build();
     }
 
@@ -84,7 +86,7 @@ class CapacityRouterTest {
             webTestClient.post()
                     .uri("/api/v1/capacities")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Capacity(1L, "", ""))
+                    .bodyValue(new Capacity(1L, "", "",new ArrayList<>()))
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON);
@@ -116,7 +118,7 @@ class CapacityRouterTest {
             webTestClient.put()
                     .uri("/api/v1/capacities/1")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Capacity(1L, "", ""))
+                    .bodyValue(new Capacity(1L, "", "",new ArrayList<>()))
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON);
@@ -130,7 +132,7 @@ class CapacityRouterTest {
             webTestClient.put()
                     .uri("/api/v1/capacities/999")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(new Capacity(1L, "", ""))
+                    .bodyValue(new Capacity(1L, "", "",new ArrayList<>()))
                     .exchange()
                     .expectStatus().isNotFound();
         }

@@ -19,24 +19,27 @@ public class CapacityService {
                 .then(repository.existsByName(capacity.name()))
                 .flatMap(exists -> {
                     if (exists) {
-                        return Mono.error(new IllegalArgumentException("La tecnología ya existe"));
+                        return Mono.error(new IllegalArgumentException("La capacidad ya existe"));
                     }
                     return repository.save(capacity);
                 });
     }
 
     private static Mono<Void> validateCapacity(Capacity capacity) {
-        if (capacity.name() == null || capacity.name().isBlank() || capacity.name().length() > 50) {
-            return Mono.error(new IllegalArgumentException("Nombre obligatorio y máximo 50 caracteres"));
+        if (capacity.technologyIds() == null || capacity.technologyIds().size() < 3) {
+            return Mono.error(new IllegalArgumentException("Debe asociar al menos 3 tecnologías"));
         }
-        if (capacity.description() == null || capacity.description().isBlank() || capacity.description().length() > 90) {
-            return Mono.error(new IllegalArgumentException("Descripción obligatoria y máximo 90 caracteres"));
+        if (capacity.technologyIds().size() > 20) {
+            return Mono.error(new IllegalArgumentException("No puede asociar más de 20 tecnologías"));
+        }
+        if (capacity.technologyIds().stream().distinct().count() != capacity.technologyIds().size()) {
+            return Mono.error(new IllegalArgumentException("No se permiten tecnologías repetidas"));
         }
         return Mono.empty();
     }
 
 
-    public Flux<Capacity> listTechnologies() {
+    public Flux<Capacity> listCapacities() {
         return repository.findAll();
     }
 
@@ -51,7 +54,8 @@ public class CapacityService {
                     Capacity updated = new Capacity(
                             id,
                             capacity.name(),
-                            capacity.description()
+                            capacity.description(),
+                            capacity.technologyIds()
                     );
                     return repository.save(updated);
                 });

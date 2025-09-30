@@ -26,12 +26,12 @@ public class CapacityRouter {
     @Bean
     @RouterOperations({
             @RouterOperation(
-                    path = "/api/v1/capacity",
+                    path = "/api/v1/capacities",
                     method = RequestMethod.GET,
                     beanClass = CapacityHandler.class,
                     beanMethod = "getAll",
                     operation = @Operation(
-                            operationId = "getAllTechnologies",
+                            operationId = "getAllCapacities",
                             summary = "Obtener todas las capacidades",
                             description = "Devuelve el listado completo de capacidades registradas en el sistema",
                             tags = {"Capacity"},
@@ -54,13 +54,13 @@ public class CapacityRouter {
                     beanMethod = "getById",
                     operation = @Operation(
                             operationId = "getCapacityById",
-                            summary = "Obtener tecnología por ID",
-                            description = "Busca una tecnología específica por su identificador único",
+                            summary = "Obtener capacidad por ID",
+                            description = "Busca una capacidad específica por su identificador único",
                             tags = {"Capacity"},
                             parameters = {
                                     @Parameter(
                                             name = "id",
-                                            description = "Identificador único de la tecnología",
+                                            description = "Identificador único de la capacidad",
                                             in = ParameterIn.PATH,
                                             required = true,
                                             schema = @Schema(type = "integer", format = "int64", example = "1")
@@ -69,7 +69,7 @@ public class CapacityRouter {
                             responses = {
                                     @ApiResponse(
                                             responseCode = "200",
-                                            description = "Tecnología encontrada",
+                                            description = "Capacidad encontrada",
                                             content = @Content(
                                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                                     schema = @Schema(implementation = Capacity.class)
@@ -77,7 +77,7 @@ public class CapacityRouter {
                                     ),
                                     @ApiResponse(
                                             responseCode = "404",
-                                            description = "Tecnología no encontrada"
+                                            description = "Capacidad no encontrada"
                                     )
                             }
                     )
@@ -89,11 +89,11 @@ public class CapacityRouter {
                     beanMethod = "create",
                     operation = @Operation(
                             operationId = "createCapacity",
-                            summary = "Crear nueva tecnología",
-                            description = "Crea una nueva tecnología en el sistema con los datos proporcionados",
+                            summary = "Crear nueva capacidad",
+                            description = "Crea una nueva capacidad en el sistema con los datos proporcionados",
                             tags = {"Capacity"},
                             requestBody = @RequestBody(
-                                    description = "Datos de la tecnología a crear",
+                                    description = "Datos de la capacidad a crear",
                                     required = true,
                                     content = @Content(
                                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -103,7 +103,7 @@ public class CapacityRouter {
                             responses = {
                                     @ApiResponse(
                                             responseCode = "200",
-                                            description = "Tecnología creada exitosamente",
+                                            description = "Capacidad creada exitosamente",
                                             content = @Content(
                                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                                     schema = @Schema(implementation = Capacity.class)
@@ -123,20 +123,20 @@ public class CapacityRouter {
                     beanMethod = "update",
                     operation = @Operation(
                             operationId = "updateCapacity",
-                            summary = "Actualizar tecnología existente",
-                            description = "Actualiza completamente los datos de una tecnología existente",
+                            summary = "Actualizar capacidad existente",
+                            description = "Actualiza completamente los datos de una capacidad existente",
                             tags = {"Capacity"},
                             parameters = {
                                     @Parameter(
                                             name = "id",
-                                            description = "Identificador único de la tecnología a actualizar",
+                                            description = "Identificador único de la capacidad a actualizar",
                                             in = ParameterIn.PATH,
                                             required = true,
                                             schema = @Schema(type = "integer", format = "int64", example = "1")
                                     )
                             },
                             requestBody = @RequestBody(
-                                    description = "Datos actualizados de la tecnología",
+                                    description = "Datos actualizados de la capacidad",
                                     required = true,
                                     content = @Content(
                                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -146,7 +146,7 @@ public class CapacityRouter {
                             responses = {
                                     @ApiResponse(
                                             responseCode = "200",
-                                            description = "Tecnología actualizada exitosamente",
+                                            description = "Capacidad actualizada exitosamente",
                                             content = @Content(
                                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                                     schema = @Schema(implementation = Capacity.class)
@@ -154,7 +154,7 @@ public class CapacityRouter {
                                     ),
                                     @ApiResponse(
                                             responseCode = "404",
-                                            description = "Tecnología no encontrada"
+                                            description = "Capacidad no encontrada"
                                     ),
                                     @ApiResponse(
                                             responseCode = "400",
@@ -170,13 +170,13 @@ public class CapacityRouter {
                     beanMethod = "delete",
                     operation = @Operation(
                             operationId = "deleteCapacity",
-                            summary = "Eliminar tecnología",
-                            description = "Elimina permanentemente una tecnología del sistema",
+                            summary = "Eliminar capacidad",
+                            description = "Elimina permanentemente una capacidad del sistema",
                             tags = {"Capacity"},
                             parameters = {
                                     @Parameter(
                                             name = "id",
-                                            description = "Identificador único de la tecnología a eliminar",
+                                            description = "Identificador único de la capacidad a eliminar",
                                             in = ParameterIn.PATH,
                                             required = true,
                                             schema = @Schema(type = "integer", format = "int64", example = "1")
@@ -185,17 +185,17 @@ public class CapacityRouter {
                             responses = {
                                     @ApiResponse(
                                             responseCode = "204",
-                                            description = "Tecnología eliminada exitosamente"
+                                            description = "Capacidad eliminada exitosamente"
                                     ),
                                     @ApiResponse(
                                             responseCode = "404",
-                                            description = "Tecnología no encontrada"
+                                            description = "Capacidad no encontrada"
                                     )
                             }
                     )
             )
     })
-    public RouterFunction<ServerResponse> technologyRoutes(CapacityHandler handler) {
+    public RouterFunction<ServerResponse> capacityRoutes(CapacityHandler handler) {
         return route(GET("/api/v1/capacities"), handler::getAll)
                 .andRoute(GET("/api/v1/capacities/{id}"), handler::getById)
                 .andRoute(POST("/api/v1/capacities"), handler::create)
